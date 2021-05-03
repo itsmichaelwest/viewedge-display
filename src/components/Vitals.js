@@ -78,7 +78,7 @@ export default function Cpu() {
                         Network in
                     </p>
                     <p>
-                        {net && `${humanFileSize(Math.round(net[0].rx_sec))} per sec` }
+                        {net && `${humanFileSize(Math.round(net[0].rx_sec))}/s` }
                     </p> 
                 </div>
             </div>
@@ -89,7 +89,7 @@ export default function Cpu() {
                         Network out
                     </p>
                     <p>
-                        {net && `${humanFileSize(Math.round(net[0].tx_sec))} per sec` }
+                        {net && `${humanFileSize(Math.round(net[0].tx_sec))}/s` }
                     </p>
                 </div>
             </div>

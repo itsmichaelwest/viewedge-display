@@ -1,0 +1,44 @@
+.clock {
+    padding-bottom: 12rem;
+}
+
+.clock .time {
+    font-size: 6rem;
+    line-height: 5rem;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+.clock .time .hour {
+    color: #00AF90;
+    font-weight: 700;
+}
+
+.clock .time .minute {
+    font-weight: 200;
+}
+
+.clock .date {
+    font-size: 2rem;
+    color: gainsboro;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .clock .time-blink {
+      animation: timeblink infinite 1s linear;
+    }
+  }
+
+@keyframes timeblink {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+  

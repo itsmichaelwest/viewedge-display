@@ -1,23 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/App.css';
+import Clock from './components/Clock';
+import Vitals from './components/Vitals';
+import Background from './icons/Background.png'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Clock/>
+      <Vitals/>
+      <img src={Background} style={{ position: 'absolute', left: 0, top: 0, zIndex: '-1', width: '100vw', height: '100vh' }} />
     </div>
   );
 }

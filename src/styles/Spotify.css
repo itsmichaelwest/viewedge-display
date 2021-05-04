@@ -26,9 +26,11 @@
 .spotify-details {
     position: relative;
     width: 100%;
+    overflow: hidden;
 }
 
 .spotify-info {
+    width: 100%;
     position: relative;
     display: flex;
     align-items: center;
@@ -49,11 +51,19 @@
 
 .song {
     font-weight: 700;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .artist, .album {
     opacity: 0.8;
     font-size: 1rem;
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .artist > span:not(:first-child)::before {

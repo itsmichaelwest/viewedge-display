@@ -13,15 +13,15 @@
         top: 0px;
     }
     25% {
-        left: 16px;
+        left: 8px;
     }
     50% {
-        left: 16px;
-        top: 16px;
+        left: 8px;
+        top: 8px;
     }
     75% {
-        left: -16px;
-        top: 16px;
+        left: -8px;
+        top: 8px;
     }
     100% {
         left: 0px;

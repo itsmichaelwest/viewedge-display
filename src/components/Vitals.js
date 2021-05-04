@@ -67,7 +67,7 @@ export default function Cpu() {
                         Memory
                     </p>
                     <p>
-                        {mem && `${Math.round(mem.used / mem.free * 100)}% (${humanFileSize(mem.used, false, 0)} of ${humanFileSize(mem.total, false, 0)})`}
+                        {mem && `${Math.round(mem.used / mem.free * 100)}%`}
                     </p>
                 </div>
             </div>

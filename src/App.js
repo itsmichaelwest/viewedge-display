@@ -12,7 +12,7 @@ function App() {
         <Vitals/>
         <Spotify/>
       </div>
-      <img src={Background} style={{ position: 'absolute', left: 0, top: 0, zIndex: '-10', width: '100vw', height: '100vh' }} />
+      <img src={Background} style={{ position: 'absolute', left: '-5vw', top: '-5vh', zIndex: '-10', width: '110vw', height: '110vh' }} />
     </div>
   );
 }

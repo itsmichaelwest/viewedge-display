@@ -13,7 +13,7 @@ export default function Spotify() {
 
         console.log(spotify)
 
-        if (spotify && spotify !== 'no') {
+        if (spotify && spotify !== 1 && spotify !== 0) {
             document.documentElement.style.setProperty('--pri-color', 'white')
             document.documentElement.style.setProperty('--pri-opacity', '0.6')
         } else {
@@ -30,11 +30,10 @@ export default function Spotify() {
 
     return (
         <>
-        { spotify !== 'no' ? 
-        <></>
-        :
-        <div className="spotify">
-            { spotify ?
+        { spotify ? 
+        <>
+            { spotify !== 1 ?
+            <div className="spotify">
                 <div className="spotify-info">
                     <img className="artwork" src={spotify.item.album.images[0].url} />
                     <div className="spotify-details">
@@ -62,11 +61,16 @@ export default function Spotify() {
                         <img src={spotify.item.album.images[0].url} />
                     </div>
                 </div>
-                :
-                <button className="spotify-login" onClick={spotifyLogin}>
-                    Click to authorize Spotify
-                </button>
+            </div>
+            :
+            <></>
             }
+        </>
+        :
+        <div className="spotify">
+            <button className="spotify-login" onClick={spotifyLogin}>
+                Click to authorize Spotify
+            </button>
         </div>
         }
         </>

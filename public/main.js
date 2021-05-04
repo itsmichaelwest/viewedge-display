@@ -80,7 +80,7 @@ ipcMain.on('spotify-np', async (event, arg) => {
                 if (data.body && data.body.is_playing) {                    
                     event.returnValue = data.body
                 } else {
-                    event.returnValue = 'no'
+                    event.returnValue = 1
                 }
             } else {
                 event.returnValue = 1
@@ -89,7 +89,7 @@ ipcMain.on('spotify-np', async (event, arg) => {
             console.error(error)
         })
     } else {
-        event.returnValue = null
+        event.returnValue = 0
     }
 })
 
@@ -115,7 +115,7 @@ app.whenReady().then(() => {
 })
 
 app.on('second-instance', (event, args) => {
-    event.preventDefault() 
+    event.preventDefault()
     if(process.platform === 'win32' && process.env.NODE_ENV === 'development') {
         setupSpotify(args[3])
     } else {

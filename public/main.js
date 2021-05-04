@@ -16,47 +16,34 @@ let spotifyApi, win, spotifyAuthCode, spotifyAccessToken, spotifyRefreshToken
 
 function createWindow () {
     const screens = screen.getAllDisplays()
-    let viewedge, isDev
+    let viewedge
     
     screens.forEach(screen2 => {
         if (screen2.displayFrequency === 89 || screen2.displayFrequency === 90) {
             viewedge = screen2
-        } else {
-            // Get the primary display for dev mode
-            viewedge = screen.getPrimaryDisplay()
-            isDev = true
         }
     })
 
     if (viewedge) {
-        if (!isDev) {
-            win = new BrowserWindow({
-                width: viewedge.bounds.width,
-                height: viewedge.bounds.height,
-                webPreferences: { 
-                    nodeIntegration: true,
-                    contextIsolation: false
-                },
-                frame: false,
-                x: viewedge.bounds.x,
-                y: viewedge.bounds.y,
-                hasShadow: false,
-                thickFrame: false,
-                kiosk: true,
-                skipTaskbar: true
-            })
-            win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-        } else {
-            win = new BrowserWindow({
-                width: 800,
-                height: 720,
-                webPreferences: { 
-                    nodeIntegration: true,
-                    contextIsolation: false
-                }
-            })
-            win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-        }
+        win = new BrowserWindow({
+            width: viewedge.bounds.width,
+            height: viewedge.bounds.height,
+            webPreferences: { 
+                nodeIntegration: true,
+                contextIsolation: false
+            },
+            frame: false,
+            x: viewedge.bounds.x,
+            y: viewedge.bounds.y,
+            hasShadow: false,
+            thickFrame: false,
+            kiosk: true,
+            skipTaskbar: true
+        })
+        win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+    } else {
+        dialog.showErrorBox('viewedge-display', 'Cannot find appropriate display!')
+        app.exit()
     }
 }
 

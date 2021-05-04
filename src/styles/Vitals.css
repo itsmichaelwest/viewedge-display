@@ -1,12 +1,11 @@
 .vitals {
-    position: absolute;
-    bottom: 2rem;
     width: calc(100vw - 4rem);
     display: grid;
     grid-template-columns: 1fr 1fr;
     row-gap: 3rem;
     column-gap: 4rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .vitals > * {
@@ -25,7 +24,8 @@
 }
 
 .vitals > * > svg {
-    fill: #00AF90;
+    fill: var(--pri-color);
+    opacity: var(--pri-opacity);
     margin-right: 2rem;
     width: 3rem;
     height: 3rem;

@@ -1,5 +1,5 @@
 .clock {
-    padding-bottom: 12rem;
+    margin-bottom: 3rem;
 }
 
 .clock .time {
@@ -11,7 +11,8 @@
 }
 
 .clock .time .hour {
-    color: #00AF90;
+    color: var(--pri-color);
+    opacity: var(--pri-opacity);
     font-weight: 700;
 }
 

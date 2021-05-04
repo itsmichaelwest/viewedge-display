@@ -5,6 +5,7 @@ import App from './App';
 
 import './fonts/MoonLight.otf'
 import './fonts/MoonBold.otf'
+import './fonts/QuicksandVariable.ttf'
 
 ReactDOM.render(
   <React.StrictMode>

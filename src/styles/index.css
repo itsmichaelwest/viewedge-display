@@ -10,6 +10,12 @@
   src: local("MoonLight"), url('../fonts/MoonLight.otf');
 }
 
+@font-face {
+  font-family: 'Quicksand';
+  font-weight: 100 900;
+  src: local("QuicksandVariable"), url('../fonts/QuicksandVariable.ttf');
+}
+
 body {
   margin: 0;
   font-family: 'Moon';

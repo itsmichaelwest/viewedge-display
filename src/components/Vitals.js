@@ -50,7 +50,7 @@ export default function Cpu() {
     return (
         <div className="vitals">
             <div className="cpu">
-                <DeveloperBoard fill="#fff" width="24" height="24" />
+                <DeveloperBoard/>
                 <div>
                     <p className="title">
                         CPU
@@ -61,7 +61,7 @@ export default function Cpu() {
                 </div>
             </div>
             <div className="mem">
-                <Data fill="#fff" width="24" height="24" />
+                <Data/>
                 <div>
                     <p className="title">
                         Memory
@@ -72,7 +72,7 @@ export default function Cpu() {
                 </div>
             </div>
             <div className="network">
-                <ArrowDownload fill="#fff" width="24" height="24" />
+                <ArrowDownload/>
                 <div>
                     <p className="title">
                         Network in
@@ -83,24 +83,13 @@ export default function Cpu() {
                 </div>
             </div>
             <div className="network">
-                <ArrowUpload fill="#fff" width="24" height="24" />
+                <ArrowUpload/>
                 <div>
                     <p className="title">
                         Network out
                     </p>
                     <p>
                         {net && `${humanFileSize(Math.round(net[0].tx_sec))}/s` }
-                    </p>
-                </div>
-            </div>
-            <div className="uptime">
-                <Clock fill="#fff" width="24" height="24" />
-                <div>
-                    <p className="title">
-                        Uptime
-                    </p>
-                    <p>
-                        {uptime && `${new Date(uptime * 1000).toISOString().substr(11, 8)}` }
                     </p>
                 </div>
             </div>

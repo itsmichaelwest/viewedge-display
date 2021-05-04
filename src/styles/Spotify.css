@@ -1,0 +1,118 @@
+.spotify {
+    font-family: 'Quicksand', sans-serif;
+    background-color: rgba(0,0,0,0.5);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.spotify-login {
+    background-color: var(--pri-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    border-radius: 0.25rem;
+    outline: none;
+}
+
+.spotify-login:active {
+    background-color: white;
+    color: var(--pri-color); 
+}
+
+.spotify-details {
+    position: relative;
+    width: 100%;
+}
+
+.spotify-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.artwork {
+    height: 6rem;
+    width: 6rem;
+    margin-right: 1.5rem;
+    border-radius: 0.25rem;
+    border: 1px rgba(255,255,255,0.2) inset;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.2);
+}
+
+.spotify-details > *:not(:last-child) {
+    margin: 0.2rem 0;
+}
+
+.song {
+    font-weight: 700;
+}
+
+.artist, .album {
+    opacity: 0.8;
+    font-size: 1rem;
+}
+
+.artist > span:not(:first-child)::before {
+    content: ', ';
+}
+
+.progress-time {
+    width: 4rem;
+    font-size: 1rem;
+}
+
+.progress-time.duration {
+    text-align: right;
+}
+
+.progress {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.progress {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.progress > * {
+    position: absolute;
+    left: 0;
+    height: 4px;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.progress-elapsed {
+    opacity: 0.8;
+}
+
+.progress-total {
+    opacity: 0.4;
+    width: 100%;
+}
+
+.album-artwork-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-color: black;
+}
+
+.album-artwork-blur > img {
+    width: 80vw;
+    height: 80vh;
+    filter: blur(200px);
+    transform: translateY(60vh) translateX(10vw);
+}

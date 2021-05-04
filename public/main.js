@@ -2,41 +2,51 @@ const path = require('path')
 const {app, BrowserWindow, screen, ipcMain} = require('electron')
 const si = require('systeminformation')
 
+let win
+
 function createWindow () {
     const screens = screen.getAllDisplays()
-    let viewedge
+    let viewedge, isDev
     
     screens.forEach(screen2 => {
         if (screen2.displayFrequency === 89 || screen2.displayFrequency === 90) {
             viewedge = screen2
         } else {
-            console.log('No screen!')
+            // Get the primary display for dev mode
+            viewedge = screen.getPrimaryDisplay()
+            isDev = true
         }
     })
 
-    //const viewedge = screen.getPrimaryDisplay()
-
-    let win
-
     if (viewedge) {
-        win = new BrowserWindow({
-            width: viewedge.bounds.width,
-            height: viewedge.bounds.height,
-            webPreferences: { 
-                nodeIntegration: true,
-                contextIsolation: false
-            },
-            frame: false,
-            x: viewedge.bounds.x,
-            y: viewedge.bounds.y,
-            hasShadow: false,
-            thickFrame: false,
-            kiosk: true,
-            skipTaskbar: true
-        })
-
-        //win.loadURL('http://localhost:3000')
-        win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+        if (!isDev) {
+            win = new BrowserWindow({
+                width: viewedge.bounds.width,
+                height: viewedge.bounds.height,
+                webPreferences: { 
+                    nodeIntegration: true,
+                    contextIsolation: false
+                },
+                frame: false,
+                x: viewedge.bounds.x,
+                y: viewedge.bounds.y,
+                hasShadow: false,
+                thickFrame: false,
+                kiosk: true,
+                skipTaskbar: true
+            })
+            win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+        } else {
+            win = new BrowserWindow({
+                width: 800,
+                height: 720,
+                webPreferences: { 
+                    nodeIntegration: true,
+                    contextIsolation: false
+                }
+            })
+            win.loadURL('http://localhost:3000')
+        }
     }
 }
 

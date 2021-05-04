@@ -8,8 +8,6 @@ const opener = require('opener')
 
 let spotifyApi, win, spotifyAuthCode, spotifyAccessToken, spotifyRefreshToken
 
-let win
-
 function createWindow () {
     const screens = screen.getAllDisplays()
     let viewedge, isDev

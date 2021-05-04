@@ -10,6 +10,7 @@
 .data {
     position: absolute;
     bottom: 2rem;
+    width: calc(100vw - 4rem);
 }
 
 @keyframes oled-move {

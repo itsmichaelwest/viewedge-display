@@ -1,6 +1,8 @@
 {
   "name": "viewedge-display",
-  "version": "0.1.3",
+  "author": "Michael West",
+  "description": "A small app to display system information on a Cary Works x KBDFANS ViewEdge display.",
+  "version": "0.1.4",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",
@@ -9,6 +11,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "opener": "^1.5.2",
+    "rage-edit": "^1.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -18,7 +21,6 @@
   },
   "devDependencies": {
     "concurrently": "^6.0.2",
-    "dotenv": "^8.2.0",
     "electron": "^12.0.6",
     "electron-builder": "^22.10.5"
   },

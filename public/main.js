@@ -1,10 +1,10 @@
-require('dotenv').config()
-
 const path = require('path')
 const { app, BrowserWindow, screen, ipcMain, protocol, dialog } = require('electron')
 const si = require('systeminformation')
 const SpotifyWebApi = require('spotify-web-api-node')
 const opener = require('opener')
+
+const { clientId, clientSecret } = require('./secrets')
 
 let spotifyApi, win, spotifyAuthCode, spotifyAccessToken, spotifyRefreshToken
 
@@ -49,7 +49,7 @@ function createWindow () {
                     contextIsolation: false
                 }
             })
-            win.loadURL('http://localhost:3000')
+            win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
         }
     }
 }
@@ -78,7 +78,7 @@ ipcMain.on('spotify-auth', async (event, arg) => {
     let scopes = 'user-read-currently-playing user-read-playback-state'
     let redirectUri = 'viewedgedisplay://callback'
 
-    opener(`https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.SPOTIFY_CLIENT_ID}&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
+    opener(`https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
 })
 ipcMain.on('spotify-np', async (event, arg) => {
     if (spotifyAuthCode) {
@@ -111,8 +111,8 @@ app.whenReady().then(() => {
     })
 
     spotifyApi = new SpotifyWebApi({
-        clientId: process.env.SPOTIFY_CLIENT_ID,
-        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+        clientId: clientId,
+        clientSecret: clientSecret,
         redirectUri: 'viewedgedisplay://callback'
     })
 })

@@ -2,10 +2,8 @@
     width: calc(100vw - 4rem);
     display: grid;
     grid-template-columns: 1fr 1fr;
-    row-gap: 3rem;
-    column-gap: 4rem;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    gap: 2rem;
+    font-size: 1.75rem;
 }
 
 .vitals > * {

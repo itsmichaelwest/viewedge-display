@@ -8,32 +8,51 @@ const opener = require('opener')
 
 let spotifyApi, win, spotifyAuthCode, spotifyAccessToken, spotifyRefreshToken
 
+let win
+
 function createWindow () {
-    /*const screens = screen.getAllDisplays()
-    let viewedge
+    const screens = screen.getAllDisplays()
+    let viewedge, isDev
     
     screens.forEach(screen2 => {
         if (screen2.displayFrequency === 89 || screen2.displayFrequency === 90) {
             viewedge = screen2
         } else {
-            console.log('No screen!')
+            // Get the primary display for dev mode
+            viewedge = screen.getPrimaryDisplay()
+            isDev = true
         }
-    })*/
-
-    const viewedge = screen.getPrimaryDisplay()
+    })
 
     if (viewedge) {
-        win = new BrowserWindow({
-            width: 800,
-            height: 720,
-            webPreferences: { 
-                nodeIntegration: true,
-                contextIsolation: false
-            }
-        })
-
-        win.loadURL('http://localhost:3000')
-        //win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+        if (!isDev) {
+            win = new BrowserWindow({
+                width: viewedge.bounds.width,
+                height: viewedge.bounds.height,
+                webPreferences: { 
+                    nodeIntegration: true,
+                    contextIsolation: false
+                },
+                frame: false,
+                x: viewedge.bounds.x,
+                y: viewedge.bounds.y,
+                hasShadow: false,
+                thickFrame: false,
+                kiosk: true,
+                skipTaskbar: true
+            })
+            win.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+        } else {
+            win = new BrowserWindow({
+                width: 800,
+                height: 720,
+                webPreferences: { 
+                    nodeIntegration: true,
+                    contextIsolation: false
+                }
+            })
+            win.loadURL('http://localhost:3000')
+        }
     }
 }
 
@@ -61,7 +80,7 @@ ipcMain.on('spotify-auth', async (event, arg) => {
     let scopes = 'user-read-currently-playing user-read-playback-state'
     let redirectUri = 'viewedgedisplay://callback'
 
-    opener(`https://accounts.spotify.com/authorize?response_type=code&client_id=9208cc2393d94fcb82eb810b09cc29c0&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
+    opener(`https://accounts.spotify.com/authorize?response_type=code&client_id=${process.env.SPOTIFY_CLIENT_ID}&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
 })
 ipcMain.on('spotify-np', async (event, arg) => {
     if (spotifyAuthCode) {

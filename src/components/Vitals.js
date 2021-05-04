@@ -6,7 +6,7 @@ import { ReactComponent as ArrowDownload } from '../icons/ArrowDownload.svg'
 import { ReactComponent as ArrowUpload } from '../icons/ArrowUpload.svg'
 import { ReactComponent as Clock } from '../icons/Clock.svg'
 
-const { ipcRenderer } = window.require("electron")
+const { ipcRenderer } = window.require('electron')
 
 export default function Cpu() {
     const [currentLoad, setCurrentLoad] = useState()
@@ -25,7 +25,7 @@ export default function Cpu() {
         return () => clearInterval(interval)
     })
 
-    function humanFileSize(bytes, si=true, dp=1) {
+    function humanFileSize(bytes, si, dp) {
         const thresh = si ? 1000 : 1024;
       
         if (Math.abs(bytes) < thresh) {
@@ -67,7 +67,7 @@ export default function Cpu() {
                         Memory
                     </p>
                     <p>
-                        {mem && `${Math.round(mem.used / mem.free * 100)}%`}
+                        {mem && `${Math.round(mem.used / mem.free * 100)}% (${humanFileSize(mem.used, false, 0)} of ${humanFileSize(mem.total, false, 0)})`}
                     </p>
                 </div>
             </div>
@@ -89,7 +89,7 @@ export default function Cpu() {
                         Network out
                     </p>
                     <p>
-                        {net && `${humanFileSize(Math.round(net[0].tx_sec))}/s` }
+                        {net && `${humanFileSize(Math.round(net[0].tx_sec), true, 1)}/s` }
                     </p>
                 </div>
             </div>

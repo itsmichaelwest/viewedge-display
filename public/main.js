@@ -6,6 +6,12 @@ const opener = require('opener')
 
 const { clientId, clientSecret } = require('./secrets')
 
+const primaryInstance = app.requestSingleInstanceLock()
+if (!primaryInstance) {
+    app.quit()
+    return
+}
+
 let spotifyApi, win, spotifyAuthCode, spotifyAccessToken, spotifyRefreshToken
 
 function createWindow () {
@@ -100,12 +106,16 @@ ipcMain.on('spotify-np', async (event, arg) => {
     }
 })
 
+if(process.platform === 'win32' && process.env.NODE_ENV === 'development') {
+    app.setAsDefaultProtocolClient('viewedgedisplay', process.execPath, [path.resolve(process.argv[1])])
+} else {
+    app.setAsDefaultProtocolClient('viewedgedisplay')
+}
+
+
 app.whenReady().then(() => {
     protocol.registerFileProtocol('viewedgedisplay', (request, callback) => {
         console.log('viewedgedisplay stuff: ', request, callback)
-        if (!app.isDefaultProtocolClient('viewedgedisplay')) {
-            app.setAsDefaultProtocolClient('viewedgedisplay')
-        }
     },(error) => {
         if (error) console.error('Failed to register protocol!')
     })
@@ -117,8 +127,21 @@ app.whenReady().then(() => {
     })
 })
 
+app.on('second-instance', (event, args) => {
+    event.preventDefault() 
+    if(process.platform === 'win32' && process.env.NODE_ENV === 'development') {
+        setupSpotify(args[3])
+    } else {
+        setupSpotify(args[2])
+    }
+})
+
 app.on('open-url', function (event, url) {
-    event.preventDefault();
+    event.preventDefault()
+    setupSpotify(url)
+})
+
+function setupSpotify(url) {
     spotifyAuthCode = url.replace('viewedgedisplay://callback/?code=', '')
     spotifyApi.authorizationCodeGrant(spotifyAuthCode).then(data => {
         spotifyAccessToken = data.body['access_token']
@@ -127,8 +150,9 @@ app.on('open-url', function (event, url) {
         spotifyApi.setAccessToken(data.body['access_token'])
         spotifyApi.setRefreshToken(data.body['refresh_token'])
     }, (error) => {
+        dialog.showErrorBox('viewedge-display', error)
         console.error('Something went wrong!', error)
     })
-})
+}
 
 app.on('ready', createWindow)

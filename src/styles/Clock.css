@@ -27,7 +27,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .clock .time-blink {
-      animation: timeblink infinite 1s linear;
+        animation: timeblink infinite 1s linear;
     }
   }
 

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import '../styles/Clock.css'
 
+/**
+ * A simple clock that displays the time in written format, and the date as a 
+ * long en-US string.
+ * 
+ * @returns A rendered clock component.
+ */
 export default function Clock() {
     const [hours, setHours] = useState()
     const [minutes, setMinutes] = useState()
@@ -9,6 +15,7 @@ export default function Clock() {
     const [month, setMonth] = useState()
     const [year, setYear] = useState()
 
+    // Update all variables once a second.
     useEffect(() => {
         const interval = setInterval(() => {
             let date = new Date()
@@ -126,6 +133,7 @@ export default function Clock() {
         'December'
     ]
 
+    // Helper function to convert a 24-hour time value back to a 12-hour value.
     function convertHour(time) {
         if (time > 12) {
             time -= 12

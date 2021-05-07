@@ -1,18 +1,27 @@
 import '../styles/Spotify.css'
 import React, { useState, useEffect } from 'react'
 
-const { ipcRenderer } = window.require("electron")
+const { ipcRenderer } = window.require('electron')
 
+/**
+ * A Spotify now playing widget that is displayed at the bottom of the screen, 
+ * showing track, album, and artist information as well as an elapsed time 
+ * progress bar.
+ * 
+ * @returns A rendered Spotify component if the user is playing any content,
+ *          otherwise an empty component.
+ */
 export default function Spotify() {
     const [spotify, setSpotify] = useState()
 
+    // Update the information in the widget from the Spotify API every second.
     useEffect(() => {
         const interval = setInterval(() => {
             setSpotify(ipcRenderer.sendSync('spotify-np'))
         }, 1000)
 
-        console.log(spotify)
-
+        // If music is playing, set up the theme of the display to prevent 
+        // background artwork from clashing with the text/icon colors.
         if (spotify && spotify !== 1 && spotify !== 0) {
             document.documentElement.style.setProperty('--pri-color', 'white')
             document.documentElement.style.setProperty('--pri-opacity', '0.6')

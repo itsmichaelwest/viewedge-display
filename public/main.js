@@ -45,7 +45,7 @@ function createWindow () {
      * local or trusted (in the case of Spotify), we are reasonably safe.
      */
     if (viewedge) {
-        win = new BrowserWindow({
+        window = new BrowserWindow({
             width: viewedge.bounds.width,
             height: viewedge.bounds.height,
             webPreferences: { 

@@ -4,13 +4,34 @@
     height: calc(100vh - 4rem);
     padding: 2rem;
     user-select: none;
-    animation: oled-move infinite 300s linear;
+    /*animation: oled-move infinite 300s linear;*/
 }
 
 .data {
     position: absolute;
     bottom: 2rem;
     width: calc(100vw - 4rem);
+}
+
+.background {
+    position: absolute;
+    left: -5vw;
+    top: -5vh;
+    z-index: -10;
+    width: 110vw;
+    height: 110vh;
+}
+
+.background .blur-effect {
+    background-color: var(--pri-color);
+    transition: all 300ms ease-in-out;
+    position: absolute;
+    left: 10%;
+    width: 80%;
+    height: 50%;
+    bottom: -25%;
+    filter: blur(200px);
+    border-radius: 1000px;
 }
 
 @keyframes oled-move {

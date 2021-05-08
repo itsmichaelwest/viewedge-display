@@ -7,6 +7,7 @@
   "main": "public/main.js",
   "homepage": "./",
   "dependencies": {
+    "axios": "^0.21.1",
     "opener": "^1.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

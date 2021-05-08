@@ -14,10 +14,12 @@
     color: var(--pri-color);
     opacity: var(--pri-opacity);
     font-weight: 700;
+    transition: all 1s ease-in-out;
 }
 
 .clock .time .minute {
     font-weight: 200;
+    width: 0;
 }
 
 .clock .date {

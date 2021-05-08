@@ -24,3 +24,4 @@ yarn-error.log*
 # we can't use dotenv for environment variables, so instead create a secrets.js
 # file in the public directory and export variables from there
 /public/secrets.js
+/src/appSecrets.js

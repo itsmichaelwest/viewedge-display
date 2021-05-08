@@ -27,6 +27,7 @@
     margin-right: 2rem;
     width: 3rem;
     height: 3rem;
+    transition: all 1s ease-in-out;
 }
 
 .title {

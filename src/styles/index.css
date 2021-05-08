@@ -16,6 +16,11 @@
     src: local("QuicksandVariable"), url('../fonts/QuicksandVariable.ttf');
 }
 
+:root {
+    --pri-color: #00AF90;
+    --pri-opacity: 1;
+}
+
 body {
     margin: 0;
     font-family: 'Moon';

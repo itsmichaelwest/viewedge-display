@@ -2,7 +2,7 @@
   "name": "viewedge-display",
   "author": "Michael West",
   "description": "A small app to display system information on a Cary Works x KBDFANS ViewEdge display.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": true,
   "main": "public/main.js",
   "homepage": "./",

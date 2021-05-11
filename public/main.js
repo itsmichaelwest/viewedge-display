@@ -62,7 +62,7 @@ function createWindow () {
         })
         // Load the built app. Swap with the commented out line for local development.
         window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-        // window.loadUrl('http://localhost:3000')
+        // window.loadURL('http://localhost:3000')
     } else {
         dialog.showErrorBox(
             'ViewEdge Display', 

@@ -50,23 +50,30 @@ export default function WeatherIcon(props) {
                 setComponent(<Fog/>)
                 document.documentElement.style.setProperty('--pri-color', '#CCCCCC')
                 break
-            case '7' || '8':
+            case '7':
+            case '8':
                 setComponent(<Cloudy/>)
                 document.documentElement.style.setProperty('--pri-color', '#CCCCCC')
                 break
-            case '9' || '13' || '16':
+            case '9':
+            case '13':
+            case '16':
                 setComponent(<RainNight/>)
                 document.documentElement.style.setProperty('--pri-color', '#3877F2')
                 break
-            case '10' || '14' || '17':
+            case '10':
+            case '14':
+            case '17':
                 setComponent(<RainDay/>)
                 document.documentElement.style.setProperty('--pri-color', '#3877F2')
                 break
-            case '11' || '12':
+            case '11':
+            case '12':
                 setComponent(<Drizzle/>)
                 document.documentElement.style.setProperty('--pri-color', '#3877F2')
                 break
-            case '15' || '18':
+            case '15':
+            case '18':
                 setComponent(<Rain/>)
                 document.documentElement.style.setProperty('--pri-color', '#3877F2')
                 break
@@ -78,19 +85,25 @@ export default function WeatherIcon(props) {
                 setComponent(<HailDay/>)
                 document.documentElement.style.setProperty('--pri-color', '#CCCCCC')
                 break
-            case '21' || '24' || '27':
+            case '21':
+            case '24':
+            case '27':
                 setComponent(<Snow/>)
                 document.documentElement.style.setProperty('--pri-color', '#DDDDDD')
                 break
-            case '22' || '25':
+            case '22':
+            case '25':
                 setComponent(<SnowNight/>)
                 document.documentElement.style.setProperty('--pri-color', '#CCCCCC')
                 break
-            case '23' || '26':
+            case '23':
+            case '26':
                 setComponent(<SnowDay/>)
                 document.documentElement.style.setProperty('--pri-color', '#DDDDDD')
                 break
-            case '28' || '29' || '30':
+            case '28':
+            case '29':
+            case '30':
                 setComponent(<Thunderstorm/>)
                 document.documentElement.style.setProperty('--pri-color', '#3877F2')
                 break

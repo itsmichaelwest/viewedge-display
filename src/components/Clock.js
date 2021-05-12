@@ -135,7 +135,7 @@ export default function Clock() {
 
     // Helper function to convert a 24-hour time value back to a 12-hour value.
     function convertHour(time) {
-        if (time > 12) {
+        if (time >= 12) {
             time -= 12
         }
         return hourStrings[time]

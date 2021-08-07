@@ -1,8 +1,7 @@
 const path = require('path')
-const { app, BrowserWindow, screen, ipcMain, protocol, dialog } = require('electron')
+const { app, BrowserWindow, screen, ipcMain, protocol, dialog, remote } = require('electron')
 const si = require('systeminformation')
 const SpotifyWebApi = require('spotify-web-api-node')
-const opener = require('opener')
 
 // Create a secrets.js file in this directory and export an object containing
 // these variables.
@@ -16,7 +15,7 @@ if (!primaryInstance) {
     return
 }
 
-let window, spotifyApi, spotifyAuthCode
+let window, spotifyAuthWindow, spotifyApi, spotifyAuthCode
 
 // Create a new Electron window, detecting the ViewEdge display where possible.
 function createWindow () {
@@ -44,31 +43,42 @@ function createWindow () {
      * Node-only functions. Because all content loaded within this app is either 
      * local or trusted (in the case of Spotify), we are reasonably safe.
      */
-    if (viewedge) {
+    if (process.env.NODE_ENV === "development") {
         window = new BrowserWindow({
-            width: viewedge.bounds.width,
-            height: viewedge.bounds.height,
+            width: 800,
+            height: 720,
             webPreferences: { 
                 nodeIntegration: true,
                 contextIsolation: false
-            },
-            frame: false,
-            x: viewedge.bounds.x,
-            y: viewedge.bounds.y,
-            hasShadow: false,
-            thickFrame: false,
-            kiosk: true,
-            skipTaskbar: true
+            }
         })
-        // Load the built app. Swap with the commented out line for local development.
-        window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
-        // window.loadURL('http://localhost:3000')
+        window.loadURL('http://localhost:3000')
     } else {
-        dialog.showErrorBox(
-            'ViewEdge Display', 
-            'Cannot find the ViewEdge display. This app will now exit.'
-        )
-        app.exit()
+        if (viewedge) {
+            window = new BrowserWindow({
+                width: viewedge.bounds.width,
+                height: viewedge.bounds.height,
+                webPreferences: { 
+                    nodeIntegration: true,
+                    contextIsolation: false
+                },
+                frame: false,
+                x: viewedge.bounds.x,
+                y: viewedge.bounds.y,
+                hasShadow: false,
+                thickFrame: false,
+                kiosk: true,
+                skipTaskbar: true,
+                title: 'ViewEdge Display'
+            })
+            window.loadURL(`file://${path.join(__dirname, '../build/index.html')}`)
+        } else {
+            dialog.showErrorBox(
+                'ViewEdge Display', 
+                'Cannot find the ViewEdge display. This app will now exit.'
+            )
+            app.exit()
+        }
     }
 }
 
@@ -102,7 +112,14 @@ ipcMain.on('spotify-auth', async (event, arg) => {
     const scopes = 'user-read-currently-playing user-read-playback-state'
     const redirectUri = 'viewedgedisplay://callback'
 
-    opener(`https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
+    //opener(`https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
+
+    spotifyAuthWindow = new BrowserWindow({
+        width: 800,
+        height: 600
+    })
+
+    spotifyAuthWindow.loadURL(`https://accounts.spotify.com/authorize?response_type=code&client_id=${clientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${redirectUri}`)
 })
 
 // Get Spotify now playing information
@@ -147,16 +164,24 @@ ipcMain.on('spotify-np', async (event, arg) => {
 // Register the viewedgedisplay:// protocol (used for Spotify authentication 
 // callback) and create a new instance of the API client.
 app.whenReady().then(() => {
-    protocol.registerFileProtocol('viewedgedisplay', (request, callback) => {
-        console.log('viewedgedisplay stuff: ', request, callback)
-    },(error) => {
-        if (error) console.error('Failed to register protocol!')
-    })
-
     spotifyApi = new SpotifyWebApi({
         clientId: clientId,
         clientSecret: clientSecret,
         redirectUri: 'viewedgedisplay://callback'
+    })
+
+    protocol.registerFileProtocol('viewedgedisplay', (request, callback) => {
+        spotifyAuthCode = request.url.replace('viewedgedisplay://callback/?code=', '')  
+        spotifyApi.authorizationCodeGrant(spotifyAuthCode).then(data => {
+            spotifyApi.setAccessToken(data.body['access_token'])
+            spotifyApi.setRefreshToken(data.body['refresh_token'])
+            spotifyAuthWindow.close()
+        }, (error) => {
+            dialog.showErrorBox('viewedge-display', error)
+            console.error('Something went wrong!', error)
+        })
+    },(error) => {
+        if (error) console.error('Failed to register protocol!')
     })
 })
 

@@ -8,7 +8,6 @@
   "homepage": "./",
   "dependencies": {
     "axios": "^0.21.1",
-    "opener": "^1.5.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -25,7 +24,7 @@
     "build": "react-scripts build",
     "eject": "react-scripts eject",
     "develop": "concurrently --kill-others \"yarn start\" \"yarn electron-start\"",
-    "electron-start": "electron .",
+    "electron-start": "NODE_ENV=development electron .",
     "preelectron-pack": "npm run build",
     "electron-pack": "electron-builder --win -c.extraMetadata.main=build/main.js"
   },

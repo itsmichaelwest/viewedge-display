@@ -13,6 +13,7 @@ const { ipcRenderer } = window.require('electron')
  */
 export default function Spotify() {
     const [spotify, setSpotify] = useState()
+    const [weatherColor, setWeatherColor] = useState()
 
     // Update the information in the widget from the Spotify API every second.
     useEffect(() => {
@@ -25,9 +26,6 @@ export default function Spotify() {
         if (spotify && spotify !== 1 && spotify !== 0) {
             document.documentElement.style.setProperty('--pri-color', 'white')
             document.documentElement.style.setProperty('--pri-opacity', '0.6')
-        } else {
-            document.documentElement.style.setProperty('--pri-color', '#00AF90')
-            document.documentElement.style.setProperty('--pri-opacity', '1')
         }
 
         return () => clearInterval(interval)

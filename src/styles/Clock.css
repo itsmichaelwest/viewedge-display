@@ -3,14 +3,18 @@
 }
 
 .clock .time {
-    font-size: 6rem;
-    line-height: 5rem;
+    font-size: 8rem;
+    line-height: 7rem;
+    margin-left: -0.5rem;
+    margin-bottom: -0.5rem;
+    margin-top: 0.5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-bottom: 2rem;
+    letter-spacing: -1rem;
 }
 
-.clock .time .hour {
+.clock .time {
     color: var(--pri-color);
     opacity: var(--pri-opacity);
     font-weight: 700;
@@ -18,30 +22,29 @@
 }
 
 .clock .time .minute {
-    font-weight: 200;
-    width: 0;
+    margin-left: 0.25rem;
 }
 
 .clock .date {
     font-size: 2rem;
-    color: gainsboro;
+    color: rgba(255,255,255,0.8);
 }
 
 @media (prefers-reduced-motion: no-preference) {
     .clock .time-blink {
         animation: timeblink infinite 1s linear;
     }
-  }
+}
 
 @keyframes timeblink {
     0% {
-        opacity: 0.6;
-    }
-    50% {
         opacity: 0.8;
     }
+    50% {
+        opacity: 1;
+    }
     100% {
-        opacity: 0.6;
+        opacity: 0.8;
     }
 }
   

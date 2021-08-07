@@ -30,84 +30,6 @@ export default function Clock() {
         return () => clearInterval(interval)
     }, [hours, minutes])
 
-    const hourStrings = [
-        'twelve',
-        'one',
-        'two',
-        'three',
-        'four',
-        'five',
-        'six',
-        'seven',
-        'eight',
-        'nine',
-        'ten',
-        'eleven'
-    ]
-
-    const minuteStrings = [
-        '',
-        'oh one',
-        'oh two',
-        'oh three',
-        'oh four',
-        'oh five',
-        'oh six',
-        'oh seven',
-        'oh eight',
-        'oh nine',
-        'ten',
-        'eleven',
-        'twelve',
-        'thirteen',
-        'fourteen',
-        'fifteen',
-        'sixteen',
-        'seventeen',
-        'eighteen',
-        'nineteen',
-        'twenty',
-        'twenty one',
-        'twenty two',
-        'twenty three',
-        'twenty four',
-        'twenty five',
-        'twenty six',
-        'twenty seven',
-        'twenty eight',
-        'twenty nine',
-        'thirty',
-        'thirty one',
-        'thirty two',
-        'thirty three',
-        'thirty four',
-        'thirty five',
-        'thirty six',
-        'thirty seven',
-        'thirty eight',
-        'thirty nine',
-        'forty',
-        'forty one',
-        'forty two',
-        'forty three',
-        'forty four',
-        'forty five',
-        'forty six',
-        'forty seven',
-        'forty eight',
-        'forty nine',
-        'fifty',
-        'fifty one',
-        'fifty two',
-        'fifty three',
-        'fifty four',
-        'fifty five',
-        'fifty six',
-        'fifty seven',
-        'fifty eight',
-        'fifty nine'
-    ]
-
     const days = [
         'Sunday',
         'Monday',
@@ -133,25 +55,20 @@ export default function Clock() {
         'December'
     ]
 
-    // Helper function to convert a 24-hour time value back to a 12-hour value.
-    function convertHour(time) {
-        if (time >= 12) {
-            time -= 12
-        }
-        return hourStrings[time]
-    }
-
     return (
         <div className="clock">
             <div className="time">
                 <span className="hour">
-                    {convertHour(hours)}
+                    {hours}
+                </span>
+                <span className="time-blink">
+                    :
                 </span>
                 <span className="minute">
-                { minutes === 0 ?
-                    <>o'clock</>
+                { minutes <= 9 ?
+                    "0" + minutes
                 :
-                    minuteStrings[minutes]
+                    minutes
                 }
                 </span>
             </div>

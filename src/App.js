@@ -11,7 +11,7 @@ function App() {
             <div className="data">
                 <Vitals/>
                 <Weather/>
-                {/*<Spotify/>*/}
+                <Spotify/>
             </div>
             <div className="background">
                 <div className="blur-effect"></div>
